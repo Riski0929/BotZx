@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path')
 
 const app = express();
+const PORT = process.env.PORT || 7860
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -39,4 +40,9 @@ app.get('*', async (req, res) => {
     console.error("Modified Error Detail:", modifiedErrorDetail)
     res.status(500).json({ error: 'Proxy error', detail: modifiedErrorDetail })
   }
+})
+
+
+app.listen(PORT, () => {
+  console.log(`Universal proxy server running on port ${PORT}`)
 })
