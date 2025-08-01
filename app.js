@@ -23,8 +23,9 @@ app.get('*', async (req, res) => {
     if (contentDisposition) res.set('Content-Disposition', contentDisposition)
     if (contentLength) res.set('Content-Length', contentLength)
 
-    // Selalu ambil sebagai buffer dan kirim
-    const buffer = await response.buffer()
+    // Perbaikan bagian ini
+    const arrayBuffer = await response.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
     res.status(response.status).send(buffer)
   } catch (err) {
     // Modifikasi URL dalam error message dengan regex
